@@ -1,12 +1,30 @@
 import { Link } from "react-router-dom";
 import "./homepage.css";
 import RoomCard from "../../components/RoomCard/RoomCard";
+import { FaCalendarDay } from "react-icons/fa";
+
 const Homepage = () => {
-  const rooms = [
-    { guestCount: 2, price: 200, roomTypes: "Single/Double", roomImg: 'src/assets/linus-mimietz-p3UWyaujtQo-unsplash.jpg' },
-    { guestCount: 3, price: 350, roomTypes: "Double", roomImg: 'src/assets/vojtech-bruzek-Yrxr3bsPdS0-unsplash.jpg' },
-    { guestCount: 6, price: 750, roomTypes: "Suite", roomImg:  'src/assets/reisetopia-aI6Su7Mu9Ro-unsplash.jpg'},
-  ];
+const rooms = [
+  {
+    guestCount: 2,
+    price: 200,
+    roomTypes: "Deluxe Double Room",
+    roomImg: "src/assets/linus-mimietz-p3UWyaujtQo-unsplash.jpg",
+  },
+  {
+    guestCount: 3,
+    price: 350,
+    roomTypes: "Executive Family Room",
+    roomImg: "src/assets/vojtech-bruzek-Yrxr3bsPdS0-unsplash.jpg",
+  },
+  {
+    guestCount: 6,
+    price: 750,
+    roomTypes: "Presidential Suite",
+    roomImg: "src/assets/reisetopia-aI6Su7Mu9Ro-unsplash.jpg",
+  },
+];
+
 
   return (
     <>
@@ -20,8 +38,8 @@ const Homepage = () => {
             Where elegance meets exceptional service.
           </h3>
           <div className="hero-button-container">
-            <Link to={"/"}>
-              <button className="booking-link">Book your stay</button>
+            <Link style={{textDecoration: 'none'}} to={"/"}>
+              <button className="booking-link"><FaCalendarDay/>Book your stay</button>
             </Link>
             <button className="explore-rooms-btn">Explore our rooms</button>
           </div>
@@ -48,6 +66,10 @@ const Homepage = () => {
           ))}
         </div>
       </secton>
+              <div className="section-header">
+
+        </div>
+        <footer></footer>
     </>
   );
 };
