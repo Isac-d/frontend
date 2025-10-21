@@ -11,7 +11,7 @@
   padding: 50px 100px;
   width: 30%;
   display: flex;
-
+  border-radius: 10px 0 0 5px;
   transform: translateX(100%);
   opacity: 0;
   transition: transform 0.3s ease-out, opacity 0.3s ease;
@@ -44,12 +44,12 @@
   margin-top: 10px;
 }
 .modal-header {
-  font-size: 20px;
+  font-size: 17px;
 }
 .booking-form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 25px;
   h2 {
     font-size: 22px;
   }
@@ -57,13 +57,13 @@
 .room-details {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 }
 
 .room-type {
   display: flex;
   flex-direction: column;
-  gap: 23px;
+  gap: 18px;
   h3 {
     font-size: 22px;
   }
@@ -86,7 +86,7 @@
 .personal-details {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 
     input {
         border: none;
@@ -112,9 +112,14 @@ input:focus {
     cursor: pointer;
     transition: 100ms all;
     font-weight: bold;
-    margin-top: 40px;
+    margin-top: 25px;
 }
 
 .submit-button:hover {
     background-color: #b07902;
+}
+.submit-button:disabled {
+  background-color: #dd98044e;
+  cursor: default;
+
 }

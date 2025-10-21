@@ -33,7 +33,7 @@ const rooms = [
 
   return (
     <>
-      {<BookingModal setSelectedRoomType={setSelectedRoomType} selectedRoomType={selectedRoomType} isOpen={openBooking}/>}
+      {<BookingModal setSelectedRoomType={setSelectedRoomType} selectedRoomType={selectedRoomType} isOpen={openBooking} setIsOpen={setOpenBooking}/>}
       <div onClick={()=>setOpenBooking(false)} className={!openBooking ? "booking-overlay" : 'booking-overlay open'}></div>
       <section className="hero">
         <div className="hero-container">

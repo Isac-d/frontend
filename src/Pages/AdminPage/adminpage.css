@@ -1,0 +1,56 @@
+.receipt {
+    background: #fff;
+    width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px dashed #333;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.receipt h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.receipt p {
+    margin: 5px 0;
+}
+
+.receipt .booking-item {
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.receipt .total {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: right;
+    border-top: 1px dashed #333;
+    padding-top: 5px;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}
+
+.bookings-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}

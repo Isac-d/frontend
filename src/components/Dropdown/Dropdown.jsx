@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './dropdown.css'
-const Dropdown = ({ options, preset, setSelect, selected }) => {
+const Dropdown = ({ options, preset, setSelect, selected, bookingOpen }) => {
     const [isOpen, setIsOpen] = useState(false)
+
+    useEffect(() => {
+      if(!bookingOpen){
+        setIsOpen(false);
+
+      }
+    }, [bookingOpen]);
+
   return (
     <div className="dropdown">
       <div

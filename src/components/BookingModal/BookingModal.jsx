@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import "./bookingmodal.css";
 import Dropdown from "../Dropdown/dropdown";
 
-const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
+const BookingModal = ({
+  selectedRoomType,
+  isOpen,
+  setSelectedRoomType,
+  setIsOpen,
+}) => {
   const [selectedGuestCount, setSelectedGuestCount] = useState(null);
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
@@ -10,6 +16,7 @@ const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
   const [lastname, setLastname] = useState(null);
   const [email, setEmail] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const guestCountOpts =
     selectedRoomType === "Deluxe Double Room"
@@ -25,6 +32,16 @@ const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
     "Presidential Suite",
   ];
 
+  const fieldsNotFilled =
+    !selectedRoomType ||
+    !selectedGuestCount ||
+    !checkInDate ||
+    !checkOutDate ||
+    !firstname ||
+    !lastname ||
+    !email ||
+    !phoneNumber;
+
   useEffect(() => {
     setSelectedGuestCount(null);
   }, [selectedRoomType]);
@@ -35,19 +52,10 @@ const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    // --- Validation ---
-    if (
-      !selectedRoomType ||
-      !selectedGuestCount ||
-      !checkInDate ||
-      !checkOutDate ||
-      !firstname ||
-      !lastname ||
-      !email ||
-      !phoneNumber
-    ) {
+    if (fieldsNotFilled) {
       alert("Please fill in all fields before submitting!");
       return;
     }
@@ -64,11 +72,9 @@ const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/bookings", {
+      const response = await fetch("http://localhost:3000/api/bookings", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),
       });
 
@@ -77,7 +83,16 @@ const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
         throw new Error(errorData.error || "Failed to create booking");
       }
 
-      alert("Booking successfully created!");
+      toast.success("Booking Created!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
 
       setSelectedRoomType(null);
       setSelectedGuestCount(null);
@@ -87,6 +102,10 @@ const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
       setLastname("");
       setEmail("");
       setPhoneNumber("");
+
+      setTimeout(() => {
+        setIsOpen(false);
+      }, 2000);
     } catch (err) {
       console.error(err);
       alert("Error creating booking: " + err.message);
@@ -95,6 +114,8 @@ const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
 
   return (
     <div className={!isOpen ? "booking-modal" : "booking-modal open"}>
+      <ToastContainer />
+
       <div className="modal-header">
         <h1>Welcome</h1>
         <div className="line"></div>
@@ -127,6 +148,7 @@ const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
               preset={"Select room type"}
               setSelect={setSelectedRoomType}
               selected={selectedRoomType}
+              openBooking={isOpen}
             />
 
             <Dropdown
@@ -134,6 +156,7 @@ const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
               preset={"Number of guests"}
               setSelect={setSelectedGuestCount}
               selected={selectedGuestCount}
+              openBooking={isOpen}
             />
           </div>
         </div>
@@ -141,31 +164,41 @@ const BookingModal = ({ selectedRoomType, isOpen, setSelectedRoomType }) => {
         <div className="personal-details">
           <h2>Personal Details</h2>
           <input
+            value={firstname || ""}
             onChange={(e) => handleInput(e, setFirstname)}
             placeholder="First name..."
             type="text"
             className="personal-detail-input"
           />
           <input
+            value={lastname || ""}
             onChange={(e) => handleInput(e, setLastname)}
             placeholder="Last name..."
             type="text"
             className="personal-detail-input"
           />
           <input
+            value={email || ""}
             onChange={(e) => handleInput(e, setEmail)}
             placeholder="Email address..."
             type="email"
             className="personal-detail-input"
           />
           <input
+            value={phoneNumber || ""}
             onChange={(e) => handleInput(e, setPhoneNumber)}
             placeholder="Phone number..."
             type="tel"
             className="personal-detail-input"
           />
         </div>
-        <button type="submit" className="submit-button">BOOK ROOM</button>
+        <button
+          disabled={fieldsNotFilled || isSubmitting}
+          type="submit"
+          className="submit-button"
+        >
+          BOOK ROOM
+        </button>
       </form>
     </div>
   );
