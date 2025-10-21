@@ -4,7 +4,7 @@ import { MdPeopleAlt } from "react-icons/md";
 import { FaBreadSlice } from "react-icons/fa";
 
 
-const RoomCard = ({ guestCount, price, roomType, roomImg,  }) => {
+const RoomCard = ({ guestCount, price, roomType, roomImg, setRoomType, setOpenBooking  }) => {
   return (
     <div className="room-card">
         <div className="room-img-container">
@@ -20,7 +20,7 @@ const RoomCard = ({ guestCount, price, roomType, roomImg,  }) => {
                <div className="room-info"><FaBreadSlice style={{color: '#dd9804', fontSize: '20px'}}/> Breakfast included</div>
             </div>
             </div>
-            <button className="view-details-button">View details</button>
+            <button onClick={()=>{setOpenBooking(true); setRoomType(roomType)}} className="view-details-button">Book room</button>
         </div>
     </div>
   );

@@ -31,10 +31,9 @@ const rooms = [
   },
 ];
 
-
   return (
     <>
-      {<BookingModal selectedRoomType={selectedRoomType} isOpen={openBooking}/>}
+      {<BookingModal setSelectedRoomType={setSelectedRoomType} selectedRoomType={selectedRoomType} isOpen={openBooking}/>}
       <div onClick={()=>setOpenBooking(false)} className={!openBooking ? "booking-overlay" : 'booking-overlay open'}></div>
       <section className="hero">
         <div className="hero-container">
@@ -70,6 +69,8 @@ const rooms = [
               price={room.price}
               roomType={room.roomTypes}
               roomImg={room.roomImg}
+              setRoomType={setSelectedRoomType}
+              setOpenBooking={setOpenBooking}
             />
           ))}
         </div>
