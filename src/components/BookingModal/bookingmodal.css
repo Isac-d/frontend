@@ -63,7 +63,7 @@
 .room-type {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 23px;
   h3 {
     font-size: 22px;
   }
