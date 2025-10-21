@@ -2,8 +2,14 @@ import { Link } from "react-router-dom";
 import "./homepage.css";
 import RoomCard from "../../components/RoomCard/RoomCard";
 import { FaCalendarDay } from "react-icons/fa";
+import { useState } from "react";
+import BookingModal from "../../components/BookingModal/BookingModal";
 
 const Homepage = () => {
+
+const [openBooking, setOpenBooking] = useState(false)
+const [selectedRoomType, setSelectedRoomType] = useState(null)
+
 const rooms = [
   {
     guestCount: 2,
@@ -28,6 +34,8 @@ const rooms = [
 
   return (
     <>
+      {<BookingModal selectedRoomType={selectedRoomType} isOpen={openBooking}/>}
+      <div onClick={()=>setOpenBooking(false)} className={!openBooking ? "booking-overlay" : 'booking-overlay open'}></div>
       <section className="hero">
         <div className="hero-container">
           <h1 className="hero-big-text">
@@ -39,13 +47,13 @@ const rooms = [
           </h3>
           <div className="hero-button-container">
             <Link style={{textDecoration: 'none'}} to={"/"}>
-              <button className="booking-link"><FaCalendarDay/>Book your stay</button>
+              <button onClick={()=>setOpenBooking(true)} className="booking-link"><FaCalendarDay/>Book your stay</button>
             </Link>
             <button className="explore-rooms-btn">Explore our rooms</button>
           </div>
         </div>
       </section>
-      <secton className="page-section">
+      <section className="page-section">
         <div className="section-header">
           <h1>Our Rooms & Suites </h1>
           <h3>
@@ -65,7 +73,7 @@ const rooms = [
             />
           ))}
         </div>
-      </secton>
+      </section>
               <div className="section-header">
 
         </div>
