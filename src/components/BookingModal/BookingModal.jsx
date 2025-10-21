@@ -28,7 +28,6 @@ const BookingModal = ({ selectedRoomType, isOpen }) => {
     "Executive Family Room",
     "Presidential Suite",
   ];
-  console.log(checkInDate)
 
   useEffect(()=>{
     setSelectedGuestCount(null)
