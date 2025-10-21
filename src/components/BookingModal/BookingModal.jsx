@@ -28,13 +28,26 @@ const BookingModal = ({ selectedRoomType, isOpen }) => {
     "Executive Family Room",
     "Presidential Suite",
   ];
+  console.log(checkInDate)
 
   useEffect(()=>{
     setSelectedGuestCount(null)
   },[roomType])
 
   const handleInput = (e, setState) => {
-    setState(e.target.value)
+    const value = e.target.value
+    setState(value)
+  }
+
+  const bookingData = {
+    guest_count: selectedGuestCount,
+    roomType,
+    check_in: checkInDate,
+    check_out: checkOutDate,
+    firstname,
+    lastname,
+    email_adress: email,
+    phone_number: phoneNumber
   }
 
 
