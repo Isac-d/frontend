@@ -17,6 +17,7 @@ const BookingModal = ({
   const [email, setEmail] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fieldsNotFilled, setFieldsNotFilled] = useState(false);
 
   const guestCountOpts =
     selectedRoomType === "Deluxe Double Room"
@@ -32,15 +33,8 @@ const BookingModal = ({
     "Presidential Suite",
   ];
 
-  const fieldsNotFilled =
-    !selectedRoomType ||
-    !selectedGuestCount ||
-    !checkInDate ||
-    !checkOutDate ||
-    !firstname ||
-    !lastname ||
-    !email ||
-    !phoneNumber;
+
+  
 
   useEffect(() => {
     setSelectedGuestCount(null);
@@ -113,9 +107,31 @@ const BookingModal = ({
     } catch (err) {
       console.error(err);
       alert("Error creating booking: " + err.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
-
+  useEffect(() => {
+    setFieldsNotFilled(
+      !selectedRoomType ||
+      !selectedGuestCount ||
+      !checkInDate ||
+      !checkOutDate ||
+      !firstname ||
+      !lastname ||
+      !email ||
+      !phoneNumber
+    );
+  }, [
+    firstname,
+    lastname,
+    checkInDate,
+    checkOutDate,
+    email,
+    phoneNumber,
+    selectedGuestCount,
+    selectedRoomType,
+  ]);
   return (
     <div className={!isOpen ? "booking-modal" : "booking-modal open"}>
       <ToastContainer />
@@ -197,7 +213,7 @@ const BookingModal = ({
           />
         </div>
         <button
-          disabled={fieldsNotFilled || isSubmitting}
+          disabled={fieldsNotFilled}
           type="submit"
           className="submit-button"
         >
