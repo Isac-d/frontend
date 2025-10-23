@@ -59,6 +59,10 @@ const BookingModal = ({
       alert("Please fill in all fields before submitting!");
       return;
     }
+    if (checkOutDate < checkInDate) {
+      alert("Check out cannot be before the check in date");
+      return;
+    }
 
     const bookingData = {
       guest_count: selectedGuestCount,
