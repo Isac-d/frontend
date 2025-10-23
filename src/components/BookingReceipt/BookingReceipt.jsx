@@ -1,4 +1,6 @@
-const BookingReceipt = ({id, firstname, lastname, roomType, checkIn, checkOut, phoneNumber}) => {
+import { useEffect, useState } from "react";
+
+const BookingReceipt = ({id, firstname, lastname, roomType, checkIn, checkOut, phoneNumber, email, guestCount, setOpenEdit, setSelectedBookingId}) => {
 
 
   const deleteBooking = async() => {
@@ -20,9 +22,15 @@ const BookingReceipt = ({id, firstname, lastname, roomType, checkIn, checkOut, p
         alert("Error deleting booking: " + err.message);
       }
   }
+
+
+
   return (
     <div className="receipt">
+      <div className="receipt-btn-container">
       <button onClick={deleteBooking} className="delete-btn">Delete</button>
+      <button onClick={()=>{setOpenEdit(true); setSelectedBookingId(id)}} className="edit-btn">Edit</button>
+      </div>
       <h2>Booking {id}</h2>
 
       <div className="booking-item">
@@ -37,6 +45,9 @@ const BookingReceipt = ({id, firstname, lastname, roomType, checkIn, checkOut, p
         </p>
         <p>
           <strong>Check-out:</strong> {new Date(checkOut).toLocaleDateString()}
+        </p>
+        <p>
+          <strong>Email:</strong> {email}
         </p>
         <p>
           <strong>Phone:</strong> {phoneNumber}
